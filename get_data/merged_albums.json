@@ -1472,6 +1472,16 @@
   {
     "artist_id": "4",
     "artist": "蘇慧倫",
+    "album_name": "不可能是不可能的事 (《昆塔•盒子總動員》3D動畫主題曲)",
+    "release_date": "2013-07-16",
+    "album_type": "single",
+    "total_tracks": "1",
+    "spotify_id": "4TL6Po04PQzZFsglmx1W9d",
+    "kkbox_id": "None"
+  },
+  {
+    "artist_id": "4",
+    "artist": "蘇慧倫",
     "album_name": "不管不管",
     "release_date": "2024-02-20",
     "album_type": "single",
@@ -1508,26 +1518,6 @@
     "total_tracks": "10",
     "spotify_id": "3cFMiiB5uTIVWpqAlM8y5B",
     "kkbox_id": "1ZMIkF0Xk0A9sV5ysy"
-  },
-  {
-    "artist_id": "4",
-    "artist": "蘇慧倫",
-    "album_name": "周華健 & 蘇慧倫2013全新合唱曲第一彈 不可能是不可能的事",
-    "release_date": "2013-07-16",
-    "album_type": "single",
-    "total_tracks": "1",
-    "spotify_id": "4TL6Po04PQzZFsglmx1W9d",
-    "kkbox_id": "None"
-  },
-  {
-    "artist_id": "4",
-    "artist": "蘇慧倫",
-    "album_name": "周華健 & 蘇慧倫2013全新合唱曲第二彈 瀟瀟雨未歇",
-    "release_date": "2013-07-16",
-    "album_type": "single",
-    "total_tracks": "1",
-    "spotify_id": "757NOVWNXORFHtDxy73XXL",
-    "kkbox_id": "None"
   },
   {
     "artist_id": "4",
@@ -1578,6 +1568,16 @@
     "total_tracks": "10",
     "spotify_id": "7hqGSdRJUIKjzxyRDdLX52",
     "kkbox_id": "4t9cXDaFtitQ-eZ03e"
+  },
+  {
+    "artist_id": "4",
+    "artist": "蘇慧倫",
+    "album_name": "心流 (北流五週年音樂共創計畫)",
+    "release_date": "2025-05-09",
+    "album_type": "single",
+    "total_tracks": "1",
+    "spotify_id": "75ShhvqKol38kFMue1C3WZ",
+    "kkbox_id": "None"
   },
   {
     "artist_id": "4",
@@ -1718,6 +1718,16 @@
     "total_tracks": "10",
     "spotify_id": "0eP9I6eEN1Mpf4EVNS2bBx",
     "kkbox_id": "DZ9rYpo_1aDjEftI0-"
+  },
+  {
+    "artist_id": "4",
+    "artist": "蘇慧倫",
+    "album_name": "瀟瀟雨未歇 (《精忠岳飛》電視主題曲)",
+    "release_date": "2013-07-16",
+    "album_type": "single",
+    "total_tracks": "1",
+    "spotify_id": "757NOVWNXORFHtDxy73XXL",
+    "kkbox_id": "None"
   },
   {
     "artist_id": "4",
@@ -3472,6 +3482,16 @@
   {
     "artist_id": "9",
     "artist": "蕭秉治",
+    "album_name": "520",
+    "release_date": "2025-05-20",
+    "album_type": "single",
+    "total_tracks": "1",
+    "spotify_id": "3oEJH71CqQoGcuP1Edu0mo",
+    "kkbox_id": "Kl972A8JBqJm-vtm9N"
+  },
+  {
+    "artist_id": "9",
+    "artist": "蕭秉治",
     "album_name": "I Miss You",
     "release_date": "2019-05-29",
     "album_type": "EP",
@@ -4412,6 +4432,16 @@
   {
     "artist_id": "12",
     "artist": "白安",
+    "album_name": "迷幻地图 (降调深沉版)",
+    "release_date": "2025-02-15",
+    "album_type": "N/A",
+    "total_tracks": "N/A",
+    "spotify_id": "None",
+    "kkbox_id": "Gm2f2qLkte5pDHFQZQ"
+  },
+  {
+    "artist_id": "12",
+    "artist": "白安",
     "album_name": "送你一首過年歌",
     "release_date": "2016-01-22",
     "album_type": "single",
@@ -5078,5 +5108,15 @@
     "total_tracks": "N/A",
     "spotify_id": "None",
     "kkbox_id": "9YlmaN0HpTG8LA5JIi"
+  },
+  {
+    "artist_id": "15",
+    "artist": "Energy",
+    "album_name": "馬上去",
+    "release_date": "2025-05-30",
+    "album_type": "single",
+    "total_tracks": "1",
+    "spotify_id": "5p9SGkQyOkGCnyyYhC3REe",
+    "kkbox_id": "0nZw_023tCwottv0uz"
   }
 ]

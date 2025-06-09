@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text
 from ..base import Base
+from sqlalchemy.orm import relationship
 
 class Artist(Base):
     __tablename__ = 'artists'
@@ -18,3 +19,5 @@ class Artist(Base):
     spotify_id = Column(String, nullable=True)
     youtube_id = Column(String, nullable=True)
     apple_music = Column(String, nullable=True)
+    
+    albums = relationship("Album", back_populates="artist", cascade="all, delete-orphan")

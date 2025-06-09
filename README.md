@@ -12,7 +12,7 @@ uvicorn main:app --reload
 
 # SQL
 ```
-cd backend
+cd code/backend
 sqlite3 db.sqlite3
 ```
 # github
@@ -30,4 +30,9 @@ git push -u origin main
 git remote add origin https://github.com/yixiang-liao/BinMusic.git
 git branch -M main
 git push -u origin main
+```
+
+# 刪除._開頭的檔案
+```
+find . -name '._*' -type f -delete
 ```
