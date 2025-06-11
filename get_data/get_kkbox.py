@@ -112,6 +112,49 @@ def get_artist_albums_KKBOX(artist_id, token):
     #     print(f"{info['release_date']} - {info['name']}\t{album_id}")
 
 
+# 查詢藝人專輯封面
+def get_artist_albums_cover_KKBOX(artist_id, token):
+    headers = {
+        'accept': "application/json",
+        'authorization': f"Bearer {token}"
+    }
+
+
+    url = f"{base_url}/artists/{artist_id}/albums?territory=TW&limit=500"
+    response = requests.get(url, headers=headers)
+
+    if response.status_code != 200:
+        raise Exception(f"查詢專輯失敗: {response.text}")
+    
+    albums_data ={}
+
+    albums = response.json()["data"]
+    # print(albums)
+
+    # return albums
+
+    for album in albums:
+        albums_data[album["id"]] = {
+            "name": album["name"],
+            "image": album["images"],
+            # "album_type": album["album_type"],
+            "release_date": parse_release_date(album["release_date"])
+            # "release_date": album["release_date"]
+        }
+
+        # print(f"專輯名稱: {album['name']} - 發行日期: {album['release_date']}")
+
+    sorted_albums = dict(sorted(
+        albums_data.items(),
+        key=lambda item: item[1]["release_date"],
+        reverse=True
+    ))
+
+    return sorted_albums
+
+    # for album_id, info in sorted_albums.items():
+    #     print(f"{info['release_date']} - {info['name']}\t{album_id}")
+
 # 主程式
 if __name__ == "__main__":
     db = SessionLocal()

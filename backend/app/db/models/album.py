@@ -16,6 +16,8 @@ class Album(Base):
     spotify_id = Column(String(100))
     kkbox_id = Column(String(100))
     description = Column(Text)
+    kkbox_cover = Column(Text)        # ← 新增
+    spotify_cover = Column(Text)      # ← 新增
 
 class LyricLine(Base):
     __tablename__ = 'lyric_lines'

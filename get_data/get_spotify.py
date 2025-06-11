@@ -112,6 +112,54 @@ def get_artist_albums_Spotify(artist_id, token):
     #     print(f"{info['release_date']} \t {info['name']} ({info['album_type']}) \t total_tracks: {info['total_tracks']} \t id: {info['id']}")
     # print("-"*5)
 
+# 查詢藝人專輯封面
+def get_artist_albums_cover_Spotify(artist_id, token):
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept-Language": "zh-TW"
+    }
+
+    params = {
+        "include_groups": "album,single",  # 只要專輯與單曲
+        "market": "TW",                    # 台灣地區可聽的作品
+        "limit": 50,                       # 回傳最多幾筆
+        "offset": 0                        # 從第幾筆開始
+    }
+
+
+    url = f"{base_url}/artists/{artist_id}/albums"
+    response = requests.get(url, headers=headers , params=params)
+
+    if response.status_code != 200:
+        raise Exception(f"查詢專輯失敗: {response.text}")
+
+    albums_data ={}
+
+    albums = response.json()["items"]
+    # print(albums)
+
+    for album in albums:
+        if album["album_type"] == "single" and album["total_tracks"] > 1:
+            type = "EP"
+        else:
+            type = album["album_type"]
+        albums_data[album["id"]] = {
+            "name": album["name"],
+            "images": album["images"],
+            # "album_type": type,
+            "release_date": datetime.strptime(album["release_date"], "%Y-%m-%d").date(),
+            # "total_tracks": album["total_tracks"],
+            "id": album["id"]
+        }
+
+    sorted_albums = dict(sorted(
+        albums_data.items(),
+        key=lambda item: item[1]["release_date"],
+        reverse=True
+    ))
+
+    return sorted_albums
+
 def safe_json_str(lst):
     """非空 list 則轉為 JSON 字串，否則回傳 None"""
     return json.dumps(lst, ensure_ascii=False) if lst else None
