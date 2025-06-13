@@ -8,6 +8,7 @@ class Album(Base):
     id = Column(Integer, primary_key=True, index=True)
     artist_id = Column(Integer, ForeignKey("artists.id"), nullable=False)
     artist = relationship("Artist", back_populates="albums")
+    lyrics = relationship("Lyric", back_populates="album")
 
     album_name = Column(String(255))
     release_date = Column(String(50))
@@ -27,6 +28,7 @@ class LyricLine(Base):
     lyric_id = Column(Integer, ForeignKey("lyrics.id"), nullable=False)  # 對應 lyrics 表的 id
     line_number = Column(Integer, nullable=False)  # 第幾行（從 1 開始）
     text = Column(Text, nullable=False)  # 歌詞內容（單行）
+    lyric = relationship("Lyric", back_populates="lines")
 
 class Lyric(Base):
     __tablename__ = 'lyrics'
@@ -43,3 +45,10 @@ class Lyric(Base):
     ws_result = Column(Text, nullable=True)   # 斷詞結果
     pos_result = Column(Text, nullable=True)  # 詞性結果
     ner_result = Column(Text, nullable=True)  # NER 結果
+
+    # ✅ 改用 back_populates 對應 Album.lyrics
+    album = relationship("Album", back_populates="lyrics")
+
+    # ✅ 同樣 Artist 也用 back_populates
+    artist = relationship("Artist", back_populates="lyrics")
+    lines = relationship("LyricLine", back_populates="lyric", cascade="all, delete-orphan")

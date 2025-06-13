@@ -14,17 +14,16 @@ from pathlib import Path
 from fastapi.responses import StreamingResponse
 from huggingface_hub import InferenceClient
 import asyncio
+from app.core.config import Settings
+from collections import defaultdict
 
 
-# client = InferenceClient(model="google/gemma-7b-it", token="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")
-client = InferenceClient(model="HuggingFaceH4/zephyr-7b-beta", token="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")
-# client = InferenceClient(model="openai-community/gpt2", token="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")
 
-
-VECTOR_DB_PATH = (Path(__file__).parent / "faiss_db_album").resolve()        # path to your FAISS index directory
+VECTOR_DB_PATH = (Path(__file__).parent / "faiss_db_album_V2").resolve()        # path to your FAISS index directory
+VECTOR_DB_PATH_NEWS = (Path(__file__).parent / "faiss_db_NEWS").resolve()        # path to your FAISS index directory
 EMBEDDING_MODEL = "shibing624/text2vec-base-chinese"
 LLM_MODEL = "gemma:2b"                          # change if you prefer another Ollama model
-TOP_K = 5                                       # number of passages to retrieve
+TOP_K = 10                                       # number of passages to retrieve
 
 router = APIRouter()
 
@@ -32,19 +31,24 @@ router = APIRouter()
 def _get_embeddings():
     return HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
 
+# 專輯向量資料庫與 retriever
+@lru_cache(maxsize=1)
+def _get_vectorstore_album():
+    return FAISS.load_local(VECTOR_DB_PATH, _get_embeddings(), allow_dangerous_deserialization=True)
 
 @lru_cache(maxsize=1)
-def _get_vectorstore():
-    return FAISS.load_local(
-        VECTOR_DB_PATH,
-        _get_embeddings(),
-        allow_dangerous_deserialization=True,
-    )
+def _get_retriever_album():
+    return _get_vectorstore_album().as_retriever(search_kwargs={"k": TOP_K})
 
+# 新聞向量資料庫與 retriever
+@lru_cache(maxsize=1)
+def _get_vectorstore_news():
+    return FAISS.load_local(VECTOR_DB_PATH_NEWS, _get_embeddings(), allow_dangerous_deserialization=True)
 
 @lru_cache(maxsize=1)
-def _get_retriever():
-    return _get_vectorstore().as_retriever(search_kwargs={"k": TOP_K})
+def _get_retriever_news():
+    return _get_vectorstore_news().as_retriever(search_kwargs={"k": TOP_K})
+
 
 
 @lru_cache(maxsize=1)
@@ -63,65 +67,92 @@ def _get_llm_chain():
     llm = OllamaLLM(model=LLM_MODEL, streaming=True)
     return LLMChain(prompt=prompt, llm=llm)
 
-@router.post("/ask", response_model=AskResponse, summary="向 RAG 系統提問")
-async def ask(req: AskRequest):
-    """RAG QA endpoint – returns answer + top‑k contexts (as plain text)."""
-    retriever = _get_retriever()
-    llm_chain = _get_llm_chain()
+@lru_cache(maxsize=1)
+def _get_llm_chain＿NEWS():
+    # prompt_template = ("""
+    #     你是一位台灣流行音樂知識庫的小編，擅長整合資料並清楚回答問題。
 
-    try:
-        docs = retriever.get_relevant_documents(req.question)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"檢索資料庫時發生錯誤: {e}")
+    #     根據以下資料，請總合整理並用繁體中文有條理地回答問題。
+    #     若資料中未提及，請明確指出「資料中未提及」，不要臆測。
 
-    context = "\n\n".join(doc.page_content for doc in docs)
+    #     ========= 資料開始 =========
+    #     {context}
+    #     ========= 資料結束 =========
 
-    try:
-        answer = llm_chain.run({"context": context, "question": req.question})
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"LLM 生成回答時發生錯誤: {e}")
+    #     問題：{question}
 
-    # 簡單整理來源：若 metadata 中有 'source' 就帶出，否則取前 30 字
-    sources = [
-        (doc.metadata.get("source") or doc.page_content[:30]).strip() for doc in docs
-    ]
+    #     請詳細作答：
+    #     """
+    # )
+    prompt_template = ("""
+        你是一位台灣流行音樂知識庫的小編，擅長整合資料並清楚回答問題。
 
-    return AskResponse(answer=answer, sources=sources)
+        根據以下資料，請總合整理並用繁體中文有條理地回答問題。
 
+        ========= 資料開始 =========
+        {context}
+        ========= 資料結束 =========
+
+        問題：{question}
+
+        請詳細作答：
+        """
+    )
+    prompt = PromptTemplate(
+        input_variables=["context", "question"], template=prompt_template
+    )
+    llm = OllamaLLM(model=LLM_MODEL, streaming=True)
+    return LLMChain(prompt=prompt, llm=llm)
 
 @router.get("/health", summary="健康檢查")
 async def health_check():
     return {"status": "ok"}
 
-@router.post("/ask/stream", summary="串流回答")
-async def ask_stream(req: AskRequest):
-    retriever = _get_retriever()
+@router.post("/stream/ask/album", summary="串流回答專輯")
+async def ask_stream_album(req: AskRequest):
+    retriever = _get_retriever_album()
     llm_chain = _get_llm_chain()
 
     docs = retriever.get_relevant_documents(req.question)
+
+    print("🔍 [ALBUM] 檢索到的文件（原始段落）:")
+    for i, doc in enumerate(docs, 1):
+        print(f"--- Document {i} ---")
+        print(f"parent_id: {doc.metadata.get('parent_id')}")
+        print(f"title: {doc.metadata.get('title', 'N/A')}")
+        print(f"內容:\n{doc.page_content}")
+        print(doc.page_content[:500], "\n")
+
     context = "\n\n".join(doc.page_content for doc in docs)
 
-    # 建立 generator
     async def token_stream():
         async for chunk in llm_chain.astream({"context": context, "question": req.question}):
-            yield chunk["text"]  # or chunk.delta for per-token
-            await asyncio.sleep(0.01)  # 避免過快造成瀏覽器不顯示
+            yield chunk["text"]
+            await asyncio.sleep(0.01)
 
     return StreamingResponse(token_stream(), media_type="text/plain")
 
-@router.post("/ask/hf_stream", summary="使用 Hugging Face 模型串流回答")
-async def ask_hf_stream(req: AskRequest):
-    retriever = _get_retriever()
+
+@router.post("/stream/ask/news", summary="串流回答新聞相關")
+async def ask_stream_news(req: AskRequest):
+    retriever = _get_retriever_news()
+    llm_chain = _get_llm_chain_NEWS()
+
     docs = retriever.get_relevant_documents(req.question)
+
+    print("🔍 [NEWS] 檢索到的文件（原始段落）:")
+    for i, doc in enumerate(docs, 1):
+        print(f"--- Document {i} ---")
+        print(f"parent_id: {doc.metadata.get('parent_id')}")
+        print(f"title: {doc.metadata.get('title', 'N/A')}")
+        print(f"內容:\n{doc.page_content}\n")  # 最多印 500 字
+
+    # 直接串接所有內容，不合併 parent_id
     context = "\n\n".join(doc.page_content for doc in docs)
 
-    full_prompt = f"""請用繁體中文回答以下問題。\n\n已知內容：\n=========\n{context}\n=========\n\n問題：{req.question}"""
+    async def token_stream():
+        async for chunk in llm_chain.astream({"context": context, "question": req.question}):
+            yield chunk["text"]
+            await asyncio.sleep(0.01)
 
-    def generate():
-        try:
-            for chunk in client.text_generation(full_prompt, stream=True, max_new_tokens=512):
-                yield chunk
-        except Exception as e:
-            yield f"[錯誤] {e}"
-
-    return StreamingResponse(generate(), media_type="text/plain")
+    return StreamingResponse(token_stream(), media_type="text/plain")
