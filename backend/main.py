@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.api.v1.endpoints.artist import artist_Basic_Information
+from app.api.v1.endpoints.rag import rag_response
 
 
 app = FastAPI()
@@ -10,6 +11,7 @@ async def root():
 
 
 app.include_router(artist_Basic_Information.router, prefix="/api/v1", tags=["artists"])
+app.include_router(rag_response.router, prefix="/api/v1/rag", tags=["rag"])
 
 if __name__ == "__main__":
     import uvicorn

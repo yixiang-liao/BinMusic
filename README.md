@@ -20,6 +20,7 @@ sqlite3 db.sqlite3
 ```
 git init
 git add .
+git add .gitignore
 git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/yixiang-liao/BinMusic.git
