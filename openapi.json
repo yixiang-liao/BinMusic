@@ -1,0 +1,1342 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "FastAPI", "version": "0.1.0" },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    },
+    "/api/v1/artists/": {
+      "post": {
+        "tags": ["artists"],
+        "summary": "新增藝人",
+        "operationId": "create_artist_api_v1_artists__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ArtistCreate" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ArtistRead" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/artists/{artist_id}": {
+      "get": {
+        "tags": ["artists"],
+        "summary": "查看特定藝人",
+        "operationId": "get_artist_api_v1_artists__artist_id__get",
+        "parameters": [
+          {
+            "name": "artist_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Artist Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ArtistRead" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["artists"],
+        "summary": "更新藝人資訊",
+        "operationId": "update_artist_api_v1_artists__artist_id__put",
+        "parameters": [
+          {
+            "name": "artist_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Artist Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ArtistCreate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ArtistRead" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["artists"],
+        "summary": "部分更新藝人資訊",
+        "operationId": "patch_artist_api_v1_artists__artist_id__patch",
+        "parameters": [
+          {
+            "name": "artist_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Artist Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ArtistUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ArtistRead" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["artists"],
+        "summary": "刪除藝人",
+        "operationId": "delete_artist_api_v1_artists__artist_id__delete",
+        "parameters": [
+          {
+            "name": "artist_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Artist Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/artists": {
+      "get": {
+        "tags": ["artists"],
+        "summary": "查看所有藝人",
+        "operationId": "read_all_artists_api_v1_artists_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/ArtistBase" },
+                  "type": "array",
+                  "title": "Response Read All Artists Api V1 Artists Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/artist-stats/{artist_id}": {
+      "get": {
+        "tags": ["artists"],
+        "summary": "查看藝人專輯統計資訊",
+        "operationId": "read_artist_stats_api_v1_artist_stats__artist_id__get",
+        "parameters": [
+          {
+            "name": "artist_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Artist Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/{artist_id}/albums/yearly": {
+      "get": {
+        "tags": ["artists"],
+        "summary": "查看藝人專輯年度統計",
+        "operationId": "read_album_yearly_counts_api_v1__artist_id__albums_yearly_get",
+        "parameters": [
+          {
+            "name": "artist_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Artist Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AlbumYearStat" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rag/health": {
+      "get": {
+        "tags": ["rag"],
+        "summary": "健康檢查",
+        "operationId": "health_check_api_v1_rag_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    },
+    "/api/v1/rag/stream/ask/album": {
+      "post": {
+        "tags": ["rag"],
+        "summary": "串流回答專輯",
+        "operationId": "ask_stream_album_api_v1_rag_stream_ask_album_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AskRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rag/stream/ask/news": {
+      "post": {
+        "tags": ["rag"],
+        "summary": "串流回答新聞相關",
+        "operationId": "ask_stream_news_api_v1_rag_stream_ask_news_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AskRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/news/crawl/news": {
+      "post": {
+        "tags": ["news"],
+        "summary": "爬蟲並更新新聞與向量庫",
+        "operationId": "crawl_news_and_update_vectorstore_api_v1_news_crawl_news_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    },
+    "/api/v1/news/": {
+      "get": {
+        "tags": ["news"],
+        "summary": "取得新聞列表",
+        "operationId": "read_news_api_v1_news__get",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Start" }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "End" }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Tag" }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Keyword" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/NewsCard" },
+                  "title": "Response Read News Api V1 News  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/news/stats": {
+      "get": {
+        "tags": ["news"],
+        "summary": "取得每月新聞統計資訊",
+        "operationId": "read_news_stats_api_v1_news_stats_get",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Start" }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "End" }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Tag" }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Keyword" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NewsStats" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/news/wordcloud": {
+      "get": {
+        "tags": ["news"],
+        "summary": "取得新聞關鍵字雲",
+        "operationId": "read_news_wordcloud_api_v1_news_wordcloud_get",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Start" }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "End" }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Tag" }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "title": "Keyword" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WordCloud" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/news/artist-volume": {
+      "get": {
+        "tags": ["news"],
+        "summary": "取得藝人新聞量",
+        "operationId": "read_artist_volume_api_v1_news_artist_volume_get",
+        "parameters": [
+          {
+            "name": "names",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": { "type": "string" },
+              "title": "Names"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ArtistVolumePoint" },
+                  "title": "Response Read Artist Volume Api V1 News Artist Volume Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/album/": {
+      "get": {
+        "tags": ["album"],
+        "summary": "查看所有專輯",
+        "operationId": "read_all_albums_api_v1_album__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/AlbumBase" },
+                  "type": "array",
+                  "title": "Response Read All Albums Api V1 Album  Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/album/{album_id}/emotions": {
+      "get": {
+        "tags": ["album"],
+        "summary": "查看專輯情感分析",
+        "operationId": "read_album_emotions_api_v1_album__album_id__emotions_get",
+        "parameters": [
+          {
+            "name": "album_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Album Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AlbumEmotion" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/album/{album_id}/top-words": {
+      "get": {
+        "tags": ["album"],
+        "summary": "查看專輯關鍵字雲",
+        "operationId": "read_album_top_words_api_v1_album__album_id__top_words_get",
+        "parameters": [
+          {
+            "name": "album_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Album Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AlbumWordCloud" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lyric_feedback/": {
+      "post": {
+        "tags": ["lyric_feedback"],
+        "summary": "提交歌詞反饋",
+        "operationId": "submit_feedback_api_v1_lyric_feedback__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LyricFeedbackCreate" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LyricFeedbackOut" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lyric_feedback/{lyric_id}": {
+      "get": {
+        "tags": ["lyric_feedback"],
+        "summary": "查看特定歌詞的反饋",
+        "operationId": "list_feedbacks_api_v1_lyric_feedback__lyric_id__get",
+        "parameters": [
+          {
+            "name": "lyric_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Lyric Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/LyricFeedbackOut" },
+                  "title": "Response List Feedbacks Api V1 Lyric Feedback  Lyric Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lyric_feedback/lyrics/search": {
+      "get": {
+        "tags": ["lyric_feedback"],
+        "summary": "根據歌曲搜尋",
+        "operationId": "search_lyrics_by_title_api_v1_lyric_feedback_lyrics_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "title": "Q" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/LyricSummary" },
+                  "title": "Response Search Lyrics By Title Api V1 Lyric Feedback Lyrics Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lyric_feedback/lyrics/by-artist": {
+      "get": {
+        "tags": ["lyric_feedback"],
+        "summary": "根據藝人搜尋歌曲",
+        "operationId": "list_lyrics_by_artist_api_v1_lyric_feedback_lyrics_by_artist_get",
+        "parameters": [
+          {
+            "name": "artist_name",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "title": "Artist Name" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/LyricSummary" },
+                  "title": "Response List Lyrics By Artist Api V1 Lyric Feedback Lyrics By Artist Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lyric_feedback/lyrics/{lyric_id}/lines": {
+      "get": {
+        "tags": ["lyric_feedback"],
+        "summary": "取得歌詞",
+        "operationId": "get_lyric_lines_api_v1_lyric_feedback_lyrics__lyric_id__lines_get",
+        "parameters": [
+          {
+            "name": "lyric_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Lyric Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/LyricLineOut" },
+                  "title": "Response Get Lyric Lines Api V1 Lyric Feedback Lyrics  Lyric Id  Lines Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AlbumBase": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "album_name": { "type": "string", "title": "Album Name" },
+          "release_date": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Release Date"
+          },
+          "album_type": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Album Type"
+          },
+          "total_tracks": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Total Tracks"
+          },
+          "kkbox_cover": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Kkbox Cover"
+          },
+          "spotify_cover": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Spotify Cover"
+          },
+          "spotify_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Spotify Id"
+          },
+          "kkbox_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Kkbox Id"
+          },
+          "artist": { "$ref": "#/components/schemas/ArtistMini" }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "album_name",
+          "release_date",
+          "album_type",
+          "total_tracks",
+          "kkbox_cover",
+          "spotify_cover",
+          "spotify_id",
+          "kkbox_id",
+          "artist"
+        ],
+        "title": "AlbumBase"
+      },
+      "AlbumEmotion": {
+        "properties": {
+          "album_id": { "type": "integer", "title": "Album Id" },
+          "emotions": {
+            "items": { "$ref": "#/components/schemas/SongEmotion" },
+            "type": "array",
+            "title": "Emotions"
+          }
+        },
+        "type": "object",
+        "required": ["album_id", "emotions"],
+        "title": "AlbumEmotion"
+      },
+      "AlbumWordCloud": {
+        "properties": {
+          "album_id": { "type": "integer", "title": "Album Id" },
+          "top_words": {
+            "items": { "$ref": "#/components/schemas/WordStat" },
+            "type": "array",
+            "title": "Top Words"
+          }
+        },
+        "type": "object",
+        "required": ["album_id", "top_words"],
+        "title": "AlbumWordCloud"
+      },
+      "AlbumYearStat": {
+        "properties": {
+          "artist_id": { "type": "integer", "title": "Artist Id" },
+          "year_counts": {
+            "additionalProperties": { "type": "integer" },
+            "type": "object",
+            "title": "Year Counts"
+          }
+        },
+        "type": "object",
+        "required": ["artist_id", "year_counts"],
+        "title": "AlbumYearStat"
+      },
+      "ArtistBase": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "en_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "En Name"
+          },
+          "genres": { "type": "string", "title": "Genres" },
+          "bin_intro": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Bin Intro"
+          },
+          "small_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Small Img"
+          },
+          "large_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Large Img"
+          },
+          "spotify_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Spotify Id"
+          },
+          "kkbox_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Kkbox Id"
+          },
+          "youtube_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Youtube Id"
+          },
+          "apple_music": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Apple Music"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "en_name",
+          "genres",
+          "bin_intro",
+          "small_img",
+          "large_img",
+          "spotify_id",
+          "kkbox_id",
+          "youtube_id",
+          "apple_music"
+        ],
+        "title": "ArtistBase"
+      },
+      "ArtistCreate": {
+        "properties": {
+          "name": { "type": "string", "title": "Name" },
+          "en_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "En Name"
+          },
+          "type": { "type": "string", "title": "Type" },
+          "genres": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Genres"
+          },
+          "bin_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Bin Url"
+          },
+          "bin_intro": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Bin Intro"
+          },
+          "small_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Small Img"
+          },
+          "large_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Large Img"
+          },
+          "logo": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Logo"
+          },
+          "kkbox_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Kkbox Id"
+          },
+          "spotify_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Spotify Id"
+          },
+          "youtube_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Youtube Id"
+          },
+          "apple_music": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Apple Music"
+          }
+        },
+        "type": "object",
+        "required": ["name", "type"],
+        "title": "ArtistCreate"
+      },
+      "ArtistMini": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" }
+        },
+        "type": "object",
+        "required": ["id", "name"],
+        "title": "ArtistMini"
+      },
+      "ArtistRead": {
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "en_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "En Name"
+          },
+          "type": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Type"
+          },
+          "genres": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Genres"
+          },
+          "bin_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Bin Url"
+          },
+          "bin_intro": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Bin Intro"
+          },
+          "small_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Small Img"
+          },
+          "large_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Large Img"
+          },
+          "logo": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Logo"
+          },
+          "kkbox_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Kkbox Id"
+          },
+          "spotify_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Spotify Id"
+          },
+          "youtube_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Youtube Id"
+          },
+          "apple_music": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Apple Music"
+          },
+          "id": { "type": "integer", "title": "Id" }
+        },
+        "type": "object",
+        "required": ["id"],
+        "title": "ArtistRead"
+      },
+      "ArtistUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "en_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "En Name"
+          },
+          "type": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Type"
+          },
+          "genres": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Genres"
+          },
+          "bin_url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Bin Url"
+          },
+          "bin_intro": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Bin Intro"
+          },
+          "small_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Small Img"
+          },
+          "large_img": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Large Img"
+          },
+          "logo": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Logo"
+          },
+          "kkbox_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Kkbox Id"
+          },
+          "spotify_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Spotify Id"
+          },
+          "youtube_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Youtube Id"
+          },
+          "apple_music": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Apple Music"
+          }
+        },
+        "type": "object",
+        "title": "ArtistUpdate"
+      },
+      "ArtistVolumePoint": {
+        "properties": {
+          "artist_name": { "type": "string", "title": "Artist Name" },
+          "data": {
+            "additionalProperties": { "type": "integer" },
+            "type": "object",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": ["artist_name", "data"],
+        "title": "ArtistVolumePoint"
+      },
+      "AskRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "title": "Question",
+            "example": "可以推薦給我幾首浪漫的歌曲嗎，並說明推薦的原因"
+          }
+        },
+        "type": "object",
+        "required": ["question"],
+        "title": "AskRequest"
+      },
+      "DailyCount": {
+        "properties": {
+          "date": { "type": "string", "title": "Date" },
+          "count": { "type": "integer", "title": "Count" }
+        },
+        "type": "object",
+        "required": ["date", "count"],
+        "title": "DailyCount"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LyricFeedbackCreate": {
+        "properties": {
+          "lyric_id": { "type": "integer", "title": "Lyric Id" },
+          "selected_lines": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "title": "Selected Lines"
+          },
+          "feeling": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Feeling"
+          },
+          "reason": { "type": "string", "title": "Reason" },
+          "user_name": { "type": "string", "title": "User Name" }
+        },
+        "type": "object",
+        "required": [
+          "lyric_id",
+          "selected_lines",
+          "feeling",
+          "reason",
+          "user_name"
+        ],
+        "title": "LyricFeedbackCreate"
+      },
+      "LyricFeedbackOut": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "lyric_id": { "type": "integer", "title": "Lyric Id" },
+          "selected_lines": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "title": "Selected Lines"
+          },
+          "feeling": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Feeling"
+          },
+          "reason": { "type": "string", "title": "Reason" },
+          "user_name": { "type": "string", "title": "User Name" }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "lyric_id",
+          "selected_lines",
+          "feeling",
+          "reason",
+          "user_name"
+        ],
+        "title": "LyricFeedbackOut"
+      },
+      "LyricLineOut": {
+        "properties": {
+          "line_number": { "type": "integer", "title": "Line Number" },
+          "text": { "type": "string", "title": "Text" }
+        },
+        "type": "object",
+        "required": ["line_number", "text"],
+        "title": "LyricLineOut"
+      },
+      "LyricSummary": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "title": { "type": "string", "title": "Title" },
+          "album_id": { "type": "integer", "title": "Album Id" },
+          "artist_id": { "type": "integer", "title": "Artist Id" }
+        },
+        "type": "object",
+        "required": ["id", "title", "album_id", "artist_id"],
+        "title": "LyricSummary"
+      },
+      "NewsCard": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "title": { "type": "string", "title": "Title" },
+          "date": { "type": "string", "title": "Date" },
+          "tag": { "type": "string", "title": "Tag" },
+          "image": { "type": "string", "title": "Image" },
+          "link": { "type": "string", "title": "Link" },
+          "content": { "type": "string", "title": "Content" }
+        },
+        "type": "object",
+        "required": ["id", "title", "date", "tag", "image", "link", "content"],
+        "title": "NewsCard"
+      },
+      "NewsStats": {
+        "properties": {
+          "counts": {
+            "items": { "$ref": "#/components/schemas/DailyCount" },
+            "type": "array",
+            "title": "Counts"
+          }
+        },
+        "type": "object",
+        "required": ["counts"],
+        "title": "NewsStats"
+      },
+      "SongEmotion": {
+        "properties": {
+          "title": { "type": "string", "title": "Title" },
+          "emotion_score": { "type": "number", "title": "Emotion Score" },
+          "emotion_label": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Emotion Label",
+            "default": "未知"
+          }
+        },
+        "type": "object",
+        "required": ["title", "emotion_score"],
+        "title": "SongEmotion"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "WordCloud": {
+        "properties": {
+          "top_words": {
+            "items": { "$ref": "#/components/schemas/WordStat" },
+            "type": "array",
+            "title": "Top Words"
+          }
+        },
+        "type": "object",
+        "required": ["top_words"],
+        "title": "WordCloud"
+      },
+      "WordStat": {
+        "properties": {
+          "word": { "type": "string", "title": "Word" },
+          "count": { "type": "integer", "title": "Count" }
+        },
+        "type": "object",
+        "required": ["word", "count"],
+        "title": "WordStat"
+      }
+    }
+  }
+}

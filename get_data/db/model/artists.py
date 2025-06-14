@@ -21,3 +21,4 @@ class Artist(Base):
     apple_music = Column(String, nullable=True)
     
     albums = relationship("Album", back_populates="artist", cascade="all, delete-orphan")
+    lyrics = relationship("Lyric", back_populates="artist")
