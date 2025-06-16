@@ -34,6 +34,7 @@ DateTime==5.5
 distro==1.9.0
 durationpy==0.10
 ecdsa==0.19.1
+faiss-cpu==1.11.0
 fake-useragent==2.2.0
 fastadmin==0.2.22
 fastapi==0.115.9
@@ -42,6 +43,7 @@ filelock==3.18.0
 flatbuffers==25.2.10
 frozenlist==1.6.0
 fsspec==2025.3.2
+git-filter-repo==2.47.0
 google-auth==2.40.3
 googleapis-common-protos==1.70.0
 greenlet==3.2.1
@@ -60,6 +62,7 @@ importlib_resources==6.5.2
 iniconfig==2.1.0
 iso8601==2.1.0
 Jinja2==3.1.6
+joblib==1.5.1
 jsonpatch==1.33
 jsonpointer==3.0.0
 jsonschema==4.24.0
@@ -68,6 +71,8 @@ kubernetes==33.1.0
 langchain==0.3.25
 langchain-community==0.3.25
 langchain-core==0.3.65
+langchain-huggingface==0.3.0
+langchain-ollama==0.3.3
 langchain-text-splitters==0.3.8
 langsmith==0.3.45
 lxml==5.4.0
@@ -101,6 +106,7 @@ packaging==24.2
 pandas==2.2.3
 passlib==1.7.4
 pendulum==3.1.0
+pillow==11.2.1
 pluggy==1.5.0
 posthog==4.7.0
 propcache==0.3.1
@@ -134,6 +140,9 @@ rich==14.0.0
 rpds-py==0.25.1
 rsa==4.9.1
 safetensors==0.5.3
+scikit-learn==1.7.0
+scipy==1.15.3
+sentence-transformers==4.1.0
 setuptools==80.3.0
 shellingham==1.5.4
 six==1.17.0
@@ -148,6 +157,7 @@ starlette==0.45.3
 sympy==1.14.0
 tabulate==0.9.0
 tenacity==9.1.2
+threadpoolctl==3.6.0
 tokenizers==0.21.1
 torch==2.7.0
 tortoise-orm==0.25.0
