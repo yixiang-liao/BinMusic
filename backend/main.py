@@ -3,9 +3,20 @@ from app.api.v1.endpoints.artist import artist_Basic_Information , artist
 from app.api.v1.endpoints.rag import rag_response
 from app.api.v1.endpoints.news import news_api , news 
 from app.api.v1.endpoints import album , lyric_feedback
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
+
+# 加入 CORS 設定
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # ⛔️ 正式上線時請改為指定網址，例如 ["https://your-frontend.com"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 async def root():

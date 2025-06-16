@@ -29,7 +29,7 @@ def get_album_emotions(album_id: int, db: Session):
     return {
         "album_id": album_id,
         "emotions": [
-            {"title": lyric.title, "emotion_score": lyric.emotion_score or 0.0, "emotion_label": lyric.emotion_label or "未知"}
+            {"title": lyric.title, "lyric_id": lyric.id,"emotion_score": lyric.emotion_score or 0.0, "emotion_label": lyric.emotion_label or "未知"}
             for lyric in lyrics
         ]
     }

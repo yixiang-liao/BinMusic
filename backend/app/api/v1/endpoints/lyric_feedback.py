@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-from app.schemas.lyric_feedback import LyricFeedbackCreate, LyricFeedbackOut ,LyricSummary ,LyricLineOut
-from app.services.lyric_feedback import create_feedback, get_feedback_by_lyric 
+from app.schemas.lyric_feedback import LyricFeedbackCreate, LyricFeedbackOut ,LyricSummary ,LyricLineOut , SongWithFeedbackOut
+from app.services.lyric_feedback import create_feedback, get_feedback_by_lyric  , get_lyrics_with_feedback
 from typing import List
 from app.db.models.album import Lyric , Album ,LyricFeedback , LyricLine
 from app.db.models.artists import Artist
@@ -12,6 +12,10 @@ router = APIRouter()
 @router.post("/", response_model=LyricFeedbackOut , summary="提交歌詞反饋")
 def submit_feedback(data: LyricFeedbackCreate, db: Session = Depends(get_db)):
     return create_feedback(db, data)
+
+@router.get("/songs-with-feedback", response_model=List[SongWithFeedbackOut], summary="取得有回饋的歌曲資訊")
+def list_songs_with_feedback(db: Session = Depends(get_db)):
+    return get_lyrics_with_feedback(db)
 
 @router.get("/{lyric_id}", response_model=List[LyricFeedbackOut] , summary="查看特定歌詞的反饋")
 def list_feedbacks(lyric_id: int, db: Session = Depends(get_db)):
@@ -39,3 +43,4 @@ def get_lyric_lines(lyric_id: int, db: Session = Depends(get_db)):
               .order_by(LyricLine.line_number)\
               .all()
     return lines
+

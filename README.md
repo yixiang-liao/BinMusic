@@ -7,7 +7,14 @@ deactivate
 # Back End
 
 ```
+cd code/backend
 uvicorn main:app --reload
+```
+
+# Font End
+```
+cd code/fontend/
+npm run dev
 ```
 
 # SQL

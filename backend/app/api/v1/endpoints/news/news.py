@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query , HTTPException
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.schemas.news import NewsCard, NewsStats, WordCloud, ArtistVolumePoint
@@ -10,6 +10,7 @@ from app.services.news import (
 )
 from typing import List
 from typing import Optional
+from app.db.models.artists import Artist
 
 router = APIRouter()
 
@@ -43,9 +44,13 @@ def read_news_wordcloud(
 ):
     return get_news_wordcloud(db, start, end, tag, keyword)
 
-@router.get("/artist-volume", response_model=List[ArtistVolumePoint] , summary="取得藝人新聞量")
-def read_artist_volume(
-    db: Session = Depends(get_db),
-    names: List[str] = Query(...)
+@router.get("/artist-volume/{artist_id}", response_model=List[ArtistVolumePoint], summary="根據 artist_id 查詢藝人新聞聲量")
+def read_artist_volume_by_artist_id(
+    artist_id: int,
+    db: Session = Depends(get_db)
 ):
-    return get_artist_volume(db, names)
+    artist = db.query(Artist).filter(Artist.id == artist_id).first()
+    if not artist:
+        raise HTTPException(status_code=404, detail="找不到藝人")
+
+    return get_artist_volume(db, [artist.name])

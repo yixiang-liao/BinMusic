@@ -1,0 +1,19 @@
+body{
+    margin: 0;
+}
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+@import './layouts/navbar.scss';
+@import './layouts/artist-swiper';
+@import './pages/artist-detail-page';
+@import './pages/Artist';
+@import './pages/News';
+@import './pages/Album';
+@import './pages/Aibot';
+@import './pages/LyricFeedback';
+@import './pages/album-detail-page';
+@import './components/_album-marquee';
+@import './components/_album-marquee2';
+@import './components/_Titleh2';
+@import './components/_NewsList';

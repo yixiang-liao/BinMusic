@@ -14,6 +14,7 @@ class Artist(Base):
     bin_intro = Column(Text, nullable=True)  # 長文字欄位
     small_img = Column(String, nullable=True)
     large_img = Column(String, nullable=True)
+    bin_img = Column(String, nullable=True)
     logo = Column(String, nullable=True)
     kkbox_id = Column(String, nullable=True)
     spotify_id = Column(String, nullable=True)

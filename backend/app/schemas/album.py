@@ -27,6 +27,7 @@ class AlbumBase(BaseModel):
 
 class SongEmotion(BaseModel):
     title: str
+    lyric_id: int
     emotion_score: float
     emotion_label: Optional[str] = "未知"  # 預設為未知情緒
 
@@ -41,3 +42,23 @@ class WordStat(BaseModel):
 class AlbumWordCloud(BaseModel):
     album_id: int
     top_words: List[WordStat]
+
+# 回傳欄位定義
+class AlbumBasicInfo(BaseModel):
+    album_name: str
+    release_date: str
+    album_type: Optional[str] = None
+    description: Optional[str] = None
+    kkbox_cover: Optional[str]
+    spotify_cover: Optional[str]
+
+    class Config:
+        from_attributes = True  # v1.10+: 用於 SQLAlchemy 模型轉換
+
+class LyricResponse(BaseModel):
+    id: int
+    title: str
+    lyrics: str
+
+    class Config:
+        from_attributes = True

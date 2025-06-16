@@ -16,13 +16,14 @@ from huggingface_hub import InferenceClient
 import asyncio
 from app.core.config import Settings
 from collections import defaultdict
+import json
 
 
 
 VECTOR_DB_PATH = (Path(__file__).parent / "faiss_db_album_V2").resolve()        # path to your FAISS index directory
 VECTOR_DB_PATH_NEWS = (Path(__file__).parent / "faiss_db_NEWS").resolve()        # path to your FAISS index directory
 EMBEDDING_MODEL = "shibing624/text2vec-base-chinese"
-LLM_MODEL = "gemma:2b"                          # change if you prefer another Ollama model
+LLM_MODEL = "gemma3:4b-it-qat"                          # change if you prefer another Ollama model
 TOP_K = 10                                       # number of passages to retrieve
 
 router = APIRouter()
@@ -115,6 +116,15 @@ async def ask_stream_album(req: AskRequest):
 
     docs = retriever.get_relevant_documents(req.question)
 
+    # 整理來源
+    sources = [
+        {
+            "title": doc.metadata.get("title", "未知標題"),
+            "content": doc.page_content[:200]  # 節錄前段文字
+        }
+        for doc in docs
+    ]
+
     print("🔍 [ALBUM] 檢索到的文件（原始段落）:")
     for i, doc in enumerate(docs, 1):
         print(f"--- Document {i} ---")
@@ -126,8 +136,18 @@ async def ask_stream_album(req: AskRequest):
     context = "\n\n".join(doc.page_content for doc in docs)
 
     async def token_stream():
+        # 回傳來源資料（type: source）
+        yield json.dumps({
+            "type": "source",
+            "data": sources
+        }) + "\n"
+
+        # 串流回答內容（type: answer）
         async for chunk in llm_chain.astream({"context": context, "question": req.question}):
-            yield chunk["text"]
+            yield json.dumps({
+                "type": "answer",
+                "data": chunk["text"]
+            }) + "\n"
             await asyncio.sleep(0.01)
 
     return StreamingResponse(token_stream(), media_type="text/plain")
@@ -145,14 +165,36 @@ async def ask_stream_news(req: AskRequest):
         print(f"--- Document {i} ---")
         print(f"parent_id: {doc.metadata.get('parent_id')}")
         print(f"title: {doc.metadata.get('title', 'N/A')}")
-        print(f"內容:\n{doc.page_content}\n")  # 最多印 500 字
+        print(f"內容:\n{doc.page_content[:300]}...\n")  # 最多印前段
 
-    # 直接串接所有內容，不合併 parent_id
+    # 提取來源資訊
+    sources = [
+        {
+            "title": doc.metadata.get("title", "未知標題"),
+            "content": doc.page_content[:200]  # 僅節錄前段文字
+        }
+        for doc in docs
+    ]
+
+    # 整合 context
     context = "\n\n".join(doc.page_content for doc in docs)
 
     async def token_stream():
-        async for chunk in llm_chain.astream({"context": context, "question": req.question}):
-            yield chunk["text"]
+        # 回傳來源資訊（一次）
+        yield json.dumps({
+            "type": "source",
+            "data": sources
+        }) + "\n"
+
+        # 串流回傳回答文字
+        async for chunk in llm_chain.astream({
+            "context": context,
+            "question": req.question
+        }):
+            yield json.dumps({
+                "type": "answer",
+                "data": chunk["text"]
+            }) + "\n"
             await asyncio.sleep(0.01)
 
-    return StreamingResponse(token_stream(), media_type="text/plain")
+    return StreamingResponse(token_stream(), media_type="application/json")

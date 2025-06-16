@@ -1,0 +1,58 @@
+.artist-page {
+  background: #fff;
+  width: 100%;
+}
+
+.artist-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-row {
+  display: flex;
+  width: 100%;
+
+  .artist-card {
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+    &.left-narrow {
+      width: 40%;
+    }
+
+    &.right-narrow {
+      width: 60%;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 0.6;
+      transition: 0.4s ease;
+    }
+
+    &:hover .overlay {
+      opacity: 0;
+    }
+
+    .info {
+      position: absolute;
+      bottom: 2rem;
+      width: 100%;
+      text-align: center;
+      color: white;
+    }
+  }
+}
+.artist-card.full-width {
+  width: 100%;
+}

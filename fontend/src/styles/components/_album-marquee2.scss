@@ -1,0 +1,43 @@
+.album-marquee2 {
+      overflow: hidden;
+      width: 100%;
+      padding: 1rem 0;
+
+      .album-list2 {
+        display: flex;
+        gap: 1rem;
+        animation: scroll-left 500s linear infinite;
+        width: fit-content;
+      }
+
+      .album-card {
+        flex: none;
+        width: 160px;
+        list-style: none;
+
+        img {
+          width: 100%;
+          border-radius: 8px;
+        }
+
+        h4 {
+          font-size: 1rem;
+          margin: 0.5rem 0 0.25rem;
+        }
+
+        p {
+          margin: 0;
+          font-size: 0.9rem;
+          color: #555;
+        }
+      }
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }

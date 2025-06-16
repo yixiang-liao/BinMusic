@@ -1,0 +1,14 @@
+.Titleh2{
+      text-align: center;
+      position: relative;
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+      &::after {
+        content: "";
+        display: block;
+        width: 60px; // 水平線寬度（你可以調整成 40px、80px 等）
+        height: 2px; // 水平線高度
+        background-color: #c7c4c4; // 顏色
+        margin: 0.5rem auto 0; // 上下間距，左右 auto 置中
+      }
+}

@@ -1,0 +1,128 @@
+.news-page {
+
+  .filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+
+    input,
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      background-color: rgb(156, 198, 21);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: rgb(134, 167, 27);
+      }
+    }
+  }
+
+  .wordcloud-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 2rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    .wordcloud-wrapper,
+    .top-keywords {
+      flex: 1 1 48%;
+      display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 1rem;
+
+      li {
+        padding: 0.25rem 0;
+        font-size: 1rem;
+      }
+    }
+  }
+  .news-trend {
+  margin: 2rem auto;
+  width: 100%;
+
+  .chart-container {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+
+//   .news-list {
+//     ul {
+//       list-style: none;
+//       padding: 0;
+
+//       li {
+//         margin-bottom: 1.5rem;
+//         padding-bottom: 1.5rem;
+//         border-bottom: 1px solid #eee;
+
+//         h3 {
+//           margin: 0.5rem 0;
+//         }
+
+//         img {
+//           max-width: 100%;
+//           height: auto;
+//           margin-bottom: 0.5rem;
+//         }
+
+//         a {
+//           color: #333;
+//           text-decoration: none;
+
+//           &:hover {
+//             text-decoration: underline;
+//             color: #007bff;
+//           }
+//         }
+//       }
+//     }
+//   }
+}
+
+// 響應式調整
+@media (max-width: 768px) {
+  .wordcloud-keywords {
+    flex-direction: column;
+
+    .wordcloud-wrapper,
+    .top-keywords {
+      flex: 1 1 100%;
+    }
+  }
+
+  .filter-section {
+    flex-direction: column;
+
+    input,
+    select,
+    button {
+      width: 100%;
+    }
+  }
+}

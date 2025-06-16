@@ -1,0 +1,92 @@
+.album-detail-page {
+  width: 100%;
+  .cover-img {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+    img {
+      width: 500px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+  }
+  h1 {
+    text-align: center;
+  }
+  .album-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    p {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    .description {
+      margin: 0 10%;
+      text-align: justify;
+    }
+  }
+  .album-keyword{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10rem;
+  }
+  .wordcloud-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    canvas {
+      width: 600px;
+      height: 400px;
+      margin: 0 auto;
+    }
+    li {
+        font-size: 1.2rem;
+    }
+  }
+
+  .song-table {
+    display: flex;
+    justify-content: center;
+  }
+
+  .song-table table {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    // font-family: "Arial", sans-serif;
+    // border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .song-table th,
+  .song-table td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .song-table thead {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  .song-table tbody tr:hover {
+    background-color: #f0f8ff;
+    transition: background-color 0.3s ease;
+  }
+  .clickable-title {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+
+}

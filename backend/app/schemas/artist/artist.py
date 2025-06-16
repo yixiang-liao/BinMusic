@@ -9,6 +9,7 @@ class ArtistBase(BaseModel):
     bin_intro: Optional[str]
     small_img: Optional[str]
     large_img: Optional[str]
+    bin_img: Optional[str]
     spotify_id: Optional[str]
     kkbox_id: Optional[str]
     youtube_id: Optional[str]
