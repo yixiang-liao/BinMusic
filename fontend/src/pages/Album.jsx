@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../layouts/NavBar";
 import Titleh2 from "../components/Titleh2";
+import Footer from "../layouts/Footer";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
@@ -42,6 +43,7 @@ const Album = () => {
           })}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

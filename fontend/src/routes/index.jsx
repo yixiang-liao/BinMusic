@@ -9,6 +9,7 @@ import News from '../pages/News';
 import AIBout from '../pages/AIBout';
 import LyricFeedback from '../pages/LyricFeedback';
 import FeedbackList from '../pages/FeedbackList';
+import ProjectIntro from '../pages/ProjectIntro';
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
       <Route path="/AIBout/" element={<AIBout />} />
       <Route path="/LyricFeedback/" element={<LyricFeedback />} />
       <Route path="/FeedbackList/" element={<FeedbackList />} />
+      <Route path="/ProjectIntro/" element={<ProjectIntro />} />
     </Routes>
   );
 };

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import WordCloud from "wordcloud";
 import NavBar from "../layouts/Navbar";
 import Titleh2 from "../components/Titleh2";
+import Footer from "../layouts/Footer";
 
 // ✅ 新增 MUI 元件
 import {
@@ -179,6 +180,7 @@ const AlbumDetailPage = () => {
           </Button>
         </DialogActions>
       </Dialog>
+        <Footer />
     </div>
   );
 };

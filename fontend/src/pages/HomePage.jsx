@@ -5,6 +5,7 @@ import ArtistSwiper from '../layouts/ArtistSwiper'
 import Titleh2 from '../components/Titleh2'
 import AlbumList2 from '../components/AlbumList2'
 import NewsList from '../components/NewsList'
+import Footer from '../layouts/Footer'
 
 const HomePage = () => {
   const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -21,6 +22,7 @@ const HomePage = () => {
         <AlbumList2 api={`${API_BASE}/album/`} />
         <Titleh2 title="可信消息" />
         <NewsList start={lastMonth} end={today} />
+        <Footer/>
     </div>
   )
 }

@@ -12,6 +12,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Footer from "../layouts/Footer";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
@@ -215,6 +216,9 @@ const fetchChartData = async () => {
       {/* 新聞列表 */}
       <Titleh2 title="新聞列表" />
       <NewsList start={start} end={end} tag={tag} keyword={keyword} />
+      <Footer />
+
+      {/* 其他資訊 */}
     </div>
   );
 };

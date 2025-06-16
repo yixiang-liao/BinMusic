@@ -13,6 +13,7 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
+import Footer from "../layouts/Footer";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
@@ -271,6 +272,7 @@ const LyricFeedback = () => {
           </DialogActions>
         </Dialog>
       </div>
+      <Footer />
     </div>
   );
 };

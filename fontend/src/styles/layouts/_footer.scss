@@ -1,0 +1,28 @@
+.footer {
+  width: 100%;
+  padding: 2rem 1rem;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  margin-top: 3rem;
+  .footer-logo {
+    margin-bottom: 1rem;
+  }
+
+  .footer-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0.2rem 0;
+  }
+
+  .footer-course {
+    font-size: 1rem;
+    margin: 0.2rem 0;
+  }
+
+  .footer-copy {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    color: #ccc;
+  }
+}

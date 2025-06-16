@@ -21,6 +21,7 @@ function BasicExample() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">首頁</Nav.Link>
+            <Nav.Link href="/ProjectIntro">專案介紹</Nav.Link>
             <Nav.Link href="/artist">藝人專區</Nav.Link>
             <Nav.Link href="/Album">專輯專區</Nav.Link>
             <Nav.Link href="/News">新聞專區</Nav.Link>

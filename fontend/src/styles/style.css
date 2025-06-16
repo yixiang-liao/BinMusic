@@ -55,6 +55,32 @@ body {
   font-size: 1rem;
 }
 
+.footer {
+  width: 100%;
+  padding: 2rem 1rem;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  margin-top: 3rem;
+}
+.footer .footer-logo {
+  margin-bottom: 1rem;
+}
+.footer .footer-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0.2rem 0;
+}
+.footer .footer-course {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+}
+.footer .footer-copy {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  color: #ccc;
+}
+
 .artist-detail-page .containerB .artist-hero {
   width: 100%;
   height: 70vh;
@@ -451,6 +477,168 @@ body {
 }
 .aibout-page .chat-input button:hover {
   background: #6fa03c;
+}
+
+.project-intro {
+  color: #222;
+  font-family: "Noto Sans TC", sans-serif;
+  /* 封面區 */
+  /* 系統介紹區 */
+  /* 模組卡片區 */
+  /* 後端 / RAG 區 */
+  /* Modal 圖片微調 */
+}
+.project-intro .cover {
+  position: relative;
+  height: 70vh;
+  background-image: url("https://www.bin-music.com.tw/album/news/66ef4093b24f6+tcw1200h675.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.project-intro .cover .cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+.project-intro .cover .cover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+.project-intro .cover .cover-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.project-intro .cover .cover-text p {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+.project-intro .cover .cover-text a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid rgb(156, 198, 21);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.project-intro .cover .cover-text a:hover {
+  background-color: rgb(156, 198, 21);
+  color: white;
+}
+.project-intro .intro {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4rem 2rem;
+  background-color: #fff;
+  align-items: center;
+  gap: 2rem;
+}
+.project-intro .intro .intro-text {
+  flex: 1 1 400px;
+}
+.project-intro .intro .intro-text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.project-intro .intro .intro-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+.project-intro .modules {
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+}
+.project-intro .modules h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.project-intro .modules .module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+.project-intro .modules .module-grid .module-card {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.project-intro .modules .module-grid .module-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.project-intro .modules .module-grid .module-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+.project-intro .modules .module-grid .module-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+.project-intro .modules .module-grid .module-card:hover {
+  transform: translateY(-5px);
+}
+.project-intro .backend {
+  background: #fff;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.project-intro .backend .backend-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+.project-intro .backend .backend-block.reverse {
+  flex-direction: row-reverse;
+}
+.project-intro .backend .backend-block .text {
+  flex: 1 1 400px;
+  text-align: center;
+}
+.project-intro .backend .backend-block .text h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+.project-intro .backend .backend-block .text p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.project-intro .backend .backend-block .image {
+  flex: 1 1 400px;
+  text-align: center;
+}
+.project-intro .backend .backend-block .image img {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.project-intro .MuiDialogContent-root img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto 1rem;
+  border-radius: 8px;
 }
 
 .lyric-feedback-page .cont {

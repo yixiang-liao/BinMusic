@@ -15,6 +15,7 @@ import {
 import NavBar from "../layouts/Navbar";
 import AlbumList from "../components/AlbumList";
 import { parse, format, addMonths, isBefore } from "date-fns";
+import Footer from "../layouts/Footer";
 
 export default function ArtistDetailPage() {
   const { id } = useParams();
@@ -241,6 +242,7 @@ const fillMissingMonths = (dataMap) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

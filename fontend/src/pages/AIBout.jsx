@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import NavBar from "../layouts/NavBar";
 import Titleh2 from "../components/Titleh2";
+import Footer from "../layouts/Footer";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
@@ -190,6 +191,7 @@ const AIBout = () => {
           </button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
